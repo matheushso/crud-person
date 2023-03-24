@@ -37,8 +37,7 @@ public class CsvLoader {
 			for (String[] field : fields) {
 				Person person = new Person();
 
-				person.setFirstName(field[1]);
-				person.setLastName(field[2]);
+				person.setNameCompany(field[1] + " " + field[2]);
 				person.setEmail(field[3]);
 				person.setCpfCnpj(field[4]);
 

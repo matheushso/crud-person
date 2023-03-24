@@ -27,7 +27,7 @@ public class PersonService {
 
 	public Person save(Person person) {
 		if (personRepository.findBycpfCnpj(person.getCpfCnpj()) != null) {
-			throw new CpfCnpjAlreadyExistsException("CNPJ/CPF already registered.");
+			throw new CpfCnpjAlreadyExistsException("CPF/CNPJ already registered.");
 		}
 
 		return personRepository.save(person);
