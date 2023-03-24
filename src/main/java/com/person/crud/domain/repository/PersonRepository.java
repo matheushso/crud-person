@@ -6,4 +6,5 @@ import com.person.crud.domain.entity.Person;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
+	Person findBycpfCnpj(String cpfCnpj);
 }

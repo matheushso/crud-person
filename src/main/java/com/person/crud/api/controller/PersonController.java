@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.person.crud.domain.entity.Person;
+import com.person.crud.domain.exception.CpfCnpjAlreadyExistsException;
 import com.person.crud.domain.repository.PersonRepository;
 import com.person.crud.domain.service.PersonService;
 
@@ -50,8 +51,14 @@ public class PersonController {
 
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	private Person create(@RequestBody Person person) {
-		return personRepository.save(person);
+	private ResponseEntity<?> create(@RequestBody Person person) {
+		try {
+			person = personService.save(person);
+			return ResponseEntity.status(HttpStatus.CREATED).body(person);
+
+		} catch (CpfCnpjAlreadyExistsException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
 	}
 
 	@PutMapping("/{id}")
@@ -62,6 +69,9 @@ public class PersonController {
 
 		} catch (EntityNotFoundException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+
+		} catch (CpfCnpjAlreadyExistsException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 	}
 
