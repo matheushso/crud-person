@@ -8,6 +8,8 @@ import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
 import com.opencsv.CSVParser;
@@ -20,7 +22,10 @@ import com.person.crud.domain.repository.PersonRepository;
 @Component
 public class CsvLoader {
 
-	private static String filePath = "src/main/resources/mock_data.csv";
+	private static final String FILE_NAME = "mock_data.csv";
+
+	@Autowired
+	private ResourceLoader resourceLoader;
 
 	@Autowired
 	private PersonRepository personRepository;
@@ -29,6 +34,9 @@ public class CsvLoader {
 	@Transactional
 	public void loadCsvData() {
 		try {
+			Resource resource = resourceLoader.getResource("file:" + FILE_NAME);
+			String filePath = resource.getFile().getAbsolutePath();
+
 			Reader reader = new FileReader(filePath);
 			CSVParser parser = new CSVParserBuilder().withSeparator(',').build();
 			CSVReader csvReader = new CSVReaderBuilder(reader).withCSVParser(parser).build();
