@@ -14,7 +14,7 @@
 <div align="center">
 <img src="https://user-images.githubusercontent.com/51098870/227647799-cfee900b-61aa-4142-be84-d2d368c5a6d8.png" width="700px" />
 </div>
-Disponível no arquivo "API_documentation.yaml" na raiz do projeto
+Disponível no arquivo "API_documentation.yaml" na raiz do projeto e a collection com os endpoints está disponível no arquivo "CRUD Person.postman_collection.json"
 
 # ⚙️ Como rodar a aplicação
 1. Certifique-se de ter o Java JDK 17 instalado em sua máquina. Você pode verificar a versão do Java digitando o comando java -version no prompt de comando ou terminal.
