@@ -142,7 +142,7 @@ class PersonAPITests {
 	@Test
 	public void shouldSuccedWhenDeletedPerson() {
 		given()
-			.pathParam("id", 1000)
+			.pathParam("id", 10)
 			.basePath("/api/v1/persons/{id}")
 			.port(port)
 			.accept(ContentType.JSON)
