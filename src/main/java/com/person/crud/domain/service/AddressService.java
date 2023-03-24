@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,11 +48,20 @@ public class AddressService {
 		return addressRepository.save(address);
 	}
 
-	// TODO Ajustar o update
-//	public Address update(Long id) {
-//		Address address = addressRepository.findById(id)
-//				.orElseThrow(() -> new EntityNotFoundException(String.format("No Address was found to ID %d", id)));
-//
-//		return addressRepository.save(address);
-//	}
+	public Address update(Long id, Address addressUpdated) {
+		Address address = addressRepository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException(String.format("No Address was found to ID %d", id)));
+
+		BeanUtils.copyProperties(addressUpdated, address, "id");
+
+		return save(address);
+
+	}
+
+	public void delete(Long id) {
+		Address address = addressRepository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException(String.format("No Address with ID %d was found.", id)));
+
+		addressRepository.delete(address);
+	}
 }
